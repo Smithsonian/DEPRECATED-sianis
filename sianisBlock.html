@@ -1,0 +1,147 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="sianis.css" type="text/css">
+<script src="sianis.js" language="javascript"></script><meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB0Qak0d1SaixcO0nOFSRWrXhLx_2D_AvM&amp;sensor=false"></script>
+</head>
+<body onload="javascript:sianisOnload();">
+<div id="sianisMainArea">
+    <div class="sianisHeader">Demo of Sidora Analysis API for Islandora</div>
+		<div id="sianisDescriptionArea">
+			<p>This is a demo of the Islandora module Sidora Analysis API, abbreviated sianis.</p>
+			<p>Analyses are performed by workflows, which run on a workflow server,
+			   through a module called Generic Workflow, abbreviated gflow.
+			   <a href="/node/6" target="gflow">This module has its own demo interface here</a>.</p>
+			<p>Workflows are constructed with the Taverna Workbench,
+			   and run by the Taverna Server, as configured 
+			   at <a href="/admin/build/block/configure/gflow/0">the Generic Workflow module block</a>.</p>
+			<p><a href="http://www.taverna.org.uk/" target="taverna">See about Taverna here</a>.</p>
+			<p>The data for the analyses are selected from the Sidora repository
+			   by functionality in sianis.</p>
+			<p>In this demo you may choose to 
+			    <ul>
+					<li>select workflow first,
+						<ul>
+							<li>then select the data, where you may
+								<ul>
+									<li><a href="/node/4">select project first</a>,</li>
+									<li><a href="/node/5">select geographic location first</a></li>
+								</ul>
+							</li>
+						</ul>
+			 		</li>
+				</ul>
+			<p>or you may choose to 
+			    <ul>
+					<li>select data first,
+						<ul>
+							<li>then select the workflow
+							</li>
+						</ul>
+			 		</li>
+				</ul>
+			   as seen below, where the selection of each data type shall be tailored in the user interface
+			   to assist the user in discovery and selection of the data.</p>
+		</div>
+	<div id="sianisLeftColumnArea">
+		<div id="sianisSelectionsArea">
+			<form>
+				<span> </span>
+				<div id="sianisSelectSpecies">
+					<span class="sianisLabel">Select species name</span>
+					<div>
+						<select id="sianisSpecies" name="species_name" size="1" class="sianisSelect" onclick="javascript:sianisSpeciesSelected(this);">
+							<option value=" ">
+								select
+							</option>
+									<option value="Bonasa umbellus">
+										Bonasa umbellus (Ruffed Grouse)
+									</option>
+									<option value="Canis latrans">
+										Canis latrans (Coyote)
+									</option>
+									<option value="Didelphis virginiana">
+										Didelphis virginiana (Virginia Opossum)
+									</option>
+									<option value="Glaucomys volans">
+										Glaucomys volans (Southern Flying Squirrel)
+									</option>
+									<option value="Lynx rufus">
+										Lynx rufus (Bobcat)
+									</option>
+									<option value="Odocoileus virginianus">
+										Odocoileus virginianus (White-tailed Deer)
+									</option>
+									<option value="Procyon lotor">
+										Procyon lotor (Northern Raccoon)
+									</option>
+									<option value="Sciurus carolinensis">
+										Sciurus carolinensis (Eastern Gray Squirrel)
+									</option>
+									<option value="Tamias striatus">
+										Tamias striatus (Eastern Chipmunk)
+									</option>
+									<option value="Ursus americanus">
+										Ursus americanus (American Black Bear)
+									</option>
+						</select>
+					</div>
+				</div>
+				<span> </span>
+				<div id="sianisSelectObservationTables">
+					<span id="sianisObservationTables" class="sianisLabel">Select observation tables</span>
+					<br>
+					<span class="sianisSubLabel">- by entering pids of observation tables:</span>
+					<br>
+					<span class="sianisSubLabel">(this is to be substituted by user assistance for selection</span>
+					<br>
+					<span class="sianisSubLabel">of project/camera site and/or geolocation bounds and/or dates)</span>
+					<table id="sianisBeginEndTable">
+						<tr>
+							<td>
+									<input id="sianisObstables" type="text" size="30" value="si:256343,si:256344">
+							</td>
+						</tr>
+					</table>
+				</div>
+				<span> </span>
+				<div>
+					<span class="sianisLabel">Select workflow</span>
+					<div>
+						<select id="sianisWorkflow" name="workflow" size="2" class="sianisSelect" onclick="javascript:sianisWorkflowSelected(this);">
+							<option value="gflow-Workflow-for-observationtables.t2flow">
+								Show observation tables
+							</option>
+							<option value="gflow-Workflow-for-FitKN-plot.t2flow">
+								Create FitKN plot
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="sianisSubLabel" style="clear:both;float:right;">
+					After your selections, click on 
+						<input id="sianisRunWorkflowButton" type="button" value="Run the Workflow" onclick="javascript:sianisRun();" title="run workflow" disabled>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div id="sianisRightColumnArea">
+		<div id="sianisMapArea" style="width:100%; height:100px"><span> </span></div>
+		<div id="sianisAjaxArea" style="display:none"><span> </span></div>
+	</div>
+	<div id="sianisStatusDiv">
+		<span> </span><div id="sianisStatusArea"><span> </span></div>
+	</div>
+	<div id="sianisBottomArea"><span> </span>
+		<h1>Sidora Analysis API</h1>
+		<table>
+			<tr>
+				<td>/sianisFind/south/west/north/east/beginDate/endDate</td>
+				<td>find observation tables</td>
+			</tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>

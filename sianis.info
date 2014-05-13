@@ -1,0 +1,9 @@
+// Sidora Analysis API for Islandora
+// file: sianis.info
+// author: Gert Schmeltz Pedersen gertsp45@gmail.com
+
+name = sianis
+description = Sidora Analysis API for Islandora
+package = sianis
+version = 6.1dev
+core = 6.x
