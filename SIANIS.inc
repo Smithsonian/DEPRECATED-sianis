@@ -25,8 +25,8 @@ class SIANIS {
     if ($solrXslt != 'none') {
     	$xsltParams = '&wt=xslt&tr=' . $solrXslt;
     }
-    $q = 'cameraLongitude%3A%5B-180+TO+180%5D+AND+cameraLatitude%3A%5B-90+TO+90%5D';
-	$command = 'curl --silent "' . $solrUrl . '?q=' . $q . '&sort=PID+asc&version=2.2&start=0&rows=' . $solrMax . '&indent=on' . $xsltParams . '" 2>&1';
+    $q = 'PID:s*';
+	$command = 'curl --silent "' . $solrUrl . '?q=' . $q . '&sort=projectPID+asc,parkPID+asc,sitePID+asc,ctPID+asc,PID+asc&version=2.2&start=0&rows=' . $solrMax . '&indent=on' . $xsltParams . '" 2>&1';
 		fwrite($logfp, "\n[$datestamp] command: $command");
 	$curlResult = shell_exec($command);
 	 	$datestamp = date('Y-m-d H:i:s');
@@ -57,14 +57,19 @@ class SIANIS {
 			fwrite($logfp, "\n[$datestamp] $user->name command: $command");
 		$curlResult = shell_exec($command);
 //			fwrite($logfp, "\n[$datestamp] $user->name curlResult: $curlResult");
-		$lines = explode("\r", $curlResult);
+		$lines = explode("\n", $curlResult);
+//			fwrite($logfp, "\n[$datestamp] $user->name lines: $lines");
 		$countLines=count($lines);
-		for($j=1;$j<$countLines;$j++) {
+			fwrite($logfp, "\n[$datestamp] $user->name countLines: $countLines");
+		for($j=1;$j<=$countLines;$j++) {
 			$line = $lines[$j];
+			fwrite($logfp, "\n[$datestamp] $user->name line $j: $line");
 			$columns = explode(",", $line);
 			$begintime = trim($columns[3]);
 			$speciesname = trim($columns[5]);
+			$speciesname = trim($speciesname, '"');
 			if ($speciesname and $begintime) {
+				$commonname = trim($commonname, '"');
 				$commonname = trim($columns[6]);
 				if ( array_key_exists($speciesname, $speciesnames) ) {
 					$countObs = $speciesnames[$speciesname][1];
